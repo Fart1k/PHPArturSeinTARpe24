@@ -1,0 +1,16 @@
+git init - uus repo
+git config --global user.name "Irina Merkulova"
+git config --global user.email "irina.merkulova@gmail.com"
+git config --global --list
+
+//ssh võti loomine
+ ssh-keygen -o -t rsa -C "irina.merkulova@gmail.com"
+ //võti salvestatakse opilane/.ssh kausta
+ //id_rsa.pub tuleb kopeeerida oma git hub -reposse
+ git add .
+ git commit -a -m "on loodud phpIndex"
+ git remote remove origin
+//
+git remote add origin git@github.com:IrinaMerkulova/phpIndexTarpe24.git
+git branch -M main
+git push -u origin main

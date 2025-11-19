@@ -1,0 +1,23 @@
+canvas#tahvel
+{
+    background-color: lightpink;
+    border: 1px solid black;
+}
+
+canvas#lippTahvel
+{
+    background-color: lightpink;
+    border: 1px solid orangered;
+}
+
+
+body
+{
+
+    font-family: "Script MT Bold", cursive;
+}
+
+input
+{
+    font-family: "Script MT Bold", cursive;
+}
