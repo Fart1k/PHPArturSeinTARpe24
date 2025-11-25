@@ -1,40 +1,37 @@
 // sirge joon
-function sirgeJoon()
-{
-    const tahvel = document.getElementById('tahvel');
-    if (!tahvel.getContext) return;
-    let t = tahvel.getContext('2d'); // anname tahvlinimi on t
-    // joon
-    t.beginPath();
-    t.strokeStyle = "black";
-    t.lineWidth = 1;
-    t.moveTo(51, 0); // alguspunkt
-    t.lineTo(51, 150) // lأµpp-punkt
-    t.stroke();
-    t.moveTo(150, 0); // alguspunkt
-    t.lineTo(150, 50) // lأµpp-punkt
-    t.stroke();
-    t.moveTo(249, 0); // alguspunkt
-    t.lineTo(249, 150) // lأµpp-punkt
-    t.stroke();
+function sirgeJoon() {
+    // Määrame tahvli
+    const tahvel = document.getElementById("tahvel");
+    if (tahvel.getContext) {
+        // Anname tahvlinimi on t
+        let t = tahvel.getContext("2d");
+        // Joon
+        t.beginPath();
+        t.strokeStyle = "red";
+        t.lineWidth = 1;
+        // Alguspunkt
+        t.moveTo(20, 80);
+        // Lõpppunkt
+        t.lineTo(50, 100)
+        t.stroke();
+    }
 }
 
-function kolmnurk()
-{
-    const tahvel = document.getElementById('tahvel');
-    if (!tahvel.getContext) return;
-    let t = tahvel.getContext('2d');
-    //kolmurk
-    t.beginPath();
-    t.strokeStyle = "black";
-    t.fillStyle = "black";
-    t.lineWidth = 1;
-    t.moveTo(50, 150);
-    t.lineTo(150, 50);
-    t.lineTo(250, 150);
-    t.lineTo(50, 150);
-    t.stroke();
-    t.fill();
+function kolmnurk() {
+    const tahvel = document.getElementById("tahvel");
+    if (tahvel.getContext) {
+        let t = tahvel.getContext("2d")
+        t.beginPath();
+        t.strokeStyle = "green";
+        t.fillStyle = "green"
+        t.lineWidth = 1;
+        t.moveTo(50, 100);
+        t.lineTo(150, 100)
+        t.lineTo(150, 200)
+        t.lineTo(50, 100)
+        t.stroke();
+        t.fill();
+    }
 }
 
 function puhasta()
@@ -45,46 +42,48 @@ function puhasta()
     t.clearRect(0, 0, 400, 350) // puhastan terve ekraani
 }
 
-function ring()
-{
-    const tahvel = document.getElementById('tahvel');
-    let r = document.getElementById('raadius').value;
+function ring() {
+    const tahvel = document.getElementById("tahvel");
+    let raadius = document.getElementById("raadius");
+    if (tahvel.getContext) {
+        let t = tahvel.getContext("2d");
+        t.beginPath();
+        t.strokeStyle = "white";
+        t.lineWidth = 1;
+        // x, y - keskpunkt, r
+        t.arc(50, 50, raadius.value, 0, 2 * Math.PI, true);
+        t.stroke();
 
-    if (!tahvel.getContext) return;
-    let t = tahvel.getContext('2d');
-    // أ¼mberjoon
-    t.beginPath();
-    t.strokeStyle = "white";
-    t.fillStyle = "white";
-    t.arc(150, (120), r, 0, 2*Math.PI, false) // x, y, R
-    t.stroke();
-    // tأ¤ida ring
-    t.fill();
-}
-
-function ristkulik()
-{
-    const tahvel = document.getElementById('tahvel');
-    let a = document.getElementById('laius');
-    let b = document.getElementById('korgus');
-    if (!tahvel.getContext) return;
-    let t = tahvel.getContext('2d');
-    t.fillStyle = "black";
-    t.fillRect(50, 150, a.value, b.value)
-}
-
-function pilt()
-{
-    const tahvel = document.getElementById('tahvel');
-    if (!tahvel.getContext) return;
-    let t = tahvel.getContext('2d');
-
-    const fail = new Image();
-    fail.src = "https://picsum.photos/200/300?random=1";
-    fail.onload = function () {
-        t.drawImage(fail, 0, 0, 300,250);
+        //ring
+        t.beginPath();
+        t.fillStyle = "white";
+        t.lineWidth = 1;
+        // x, y - keskpunkt, r
+        t.arc(50, 120, raadius.value, 0, 2 * Math.PI, true);
+        t.fill();
     }
+}
 
+function ristkulik() {
+    const tahvel = document.getElementById("tahvel");
+    let laius = document.getElementById("laius");
+    let korgus = document.getElementById("korgus");
+    if (tahvel.getContext) {
+        let t = tahvel.getContext("2d");
+        t.fillStyle = "red";
+        t.fillRect(50, 30, laius.value, korgus.value);
+    }
+}
+
+function pilt() {
+    const tahvel = document.getElementById("tahvel");
+    if (tahvel.getContext) {
+        let t = tahvel.getContext("2d");
+
+        const fail = new Image();
+        fail.src = "https://picsum.photos/200/300";
+        t.drawImage(fail, 50, 50, 100, 200);
+    }
 }
 function eestiLipp()
 {

@@ -1,13 +1,11 @@
-canvas#tahvel
-{
-    background-color: lightpink;
+canvas#tahvel {
+    background-color: lightgrey;
     border: 1px solid black;
 }
-
 canvas#lippTahvel
 {
-    background-color: lightpink;
-    border: 1px solid orangered;
+    background-color: lightgrey;
+    border: 1px solid black;
 }
 
 

@@ -2,7 +2,7 @@
 <html lang="et">
 <head>
     <meta charset="UTF-8">
-    <title>Irina PHP-tööde leht</title>
+    <title>ArturPHP</title>
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/joonis.css">
     <script src="js/joonisScript.js"></script>
@@ -27,16 +27,19 @@ include("nav.php");
     <div>
         <?php
         //sisu - laetakse content kaustast
-        if(isset($_GET["leht"])){
+        if(isset($_GET["leht"]))
+        {
             include('content/'.$_GET["leht"]);
-        } else {
+        }
+        else
+        {
             include('content/kodu.php');
         }
         ?>
     </div>
 
     <div>
-        <img src="image/phpPilt.png" alt="PHP pilt">
+        <img src="image/php.png" alt="php.png">
     </div>
 </div>
 
