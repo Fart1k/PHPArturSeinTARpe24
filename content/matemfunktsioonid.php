@@ -1,4 +1,14 @@
 <?php
+
+function clearVarsExcept($url, $varname){
+    $url = basename($url);
+    if (str_starts_with($url, "?")){
+        return "?$varname=".$_REQUEST[$varname];
+    }
+
+    return strtok($url, "?")."?$varname=".$_REQUEST[$varname];
+}
+
 echo "<h2>Matemaatilised tehted/funktsioonid</h2>";
 $arv1 = 10;
 $arv2 = 15;
@@ -47,7 +57,7 @@ echo "<li>Kui teine arv ruutu võtta siis tuleb: ".($salaarv2*$salaarv2)."</li>"
 echo "<li>Teise arvu ruutjuur on: ".sqrt($salaarv2)."</li>";
 echo "</ol>";
 ?>
-    <form action="" method="post">
+    <form action="<?=clearVarsExcept($_SERVER['REQUEST_URI'], "leht")?>" method="post">
         <label for="arv1">Arv1: </label>
         <input type="text" id="arv1" name="arv1" min="0" max="10" step="1">
         <br>

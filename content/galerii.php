@@ -8,8 +8,8 @@
     <select name="image">
         <option value="">Vali pilt</option>
         <?php
-        chdir("..");
-        $kataloog = 'image';
+
+        $kataloog = 'image/';
         $asukoht=opendir($kataloog);
         while($rida = readdir($asukoht)){
             if($rida!='.' && $rida!='..'){
