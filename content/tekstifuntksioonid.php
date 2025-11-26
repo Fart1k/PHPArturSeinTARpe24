@@ -71,6 +71,11 @@ echo "Selles sõnas on ".mb_strlen($linn). " tähte";
 echo '<br>';
 echo "Esimene täht - $linn[0]";
 echo '<br>';
+echo "Linn lõpeb - ".substr($linn, strlen($linn)-1, 1)." tähega.";
+echo '<br>';
+echo "Linna teine täht on - ".substr($linn, 1, 2);
+echo '<br>';
+echo "Linna neljas täht on - ".substr($linn, 4, 1);
 ?>
 <form action="tekstifuntksioonid.php" method="post">
     <label for="linn">Sisesta linn</label>
