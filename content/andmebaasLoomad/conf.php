@@ -1,0 +1,21 @@
+<?php
+$servername = "localhost";
+$kasutajaname = "artursein";
+$parool = "12345";
+$andmebaasinimi = $kasutajaname;
+
+$yhendus = new mysqli($servername, $kasutajaname, $parool, $andmebaasinimi);
+$yhendus -> set_charset("utf8");
+
+
+/* zone.ee
+<?php
+$servername = "d141170.mysql.zonevs.eu";
+$kasutajaname = "d141170_artursein";
+$parool = "12345";
+$andmebaasinimi = "d141170_phpbaas";
+
+$yhendus = new mysqli($servername, $kasutajaname, $parool, $andmebaasinimi);
+$yhendus -> set_charset("utf8");
+*/
+
