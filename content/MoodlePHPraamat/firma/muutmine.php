@@ -84,40 +84,45 @@
 
             if ($kask->fetch()) {
              if (isset($_REQUEST["muutmine"])) {
-                echo "
-                   <form action='".$_SERVER["PHP_SELF"]."'>
-                     <input type='hidden' name='muutmisid' value='$id'/>
+                 ?>
+                 <form action="<?= $_SERVER["PHP_SELF"] ?>">
+                     <input type="hidden" name="muutmisid" value="<?= $id ?>"/>
                      <h2>Teate muutmine</h2>
+
                      <dl>
-                       <dt><label for='toode'>Toode: </label></dt>
-                       <dd>
-                         <input type='text' name='toode' value='' id = 'toode' />".
-                                    htmlspecialchars($toode)."'/>
-                       </dd>
-                       <dt><label for='kirjeldus'>Teate Kirjeldus: </label></dt>
-                       <dd>
-                         <textarea rows='20' cols='30' name='kirjeldus' id='kirjeldus'>".
-                            htmlspecialchars($Kirjeldus)."</textarea>
-                       </dd>
-                       
-                       <dt><label for='hind'>Hind: </label></dt>
-                       <dd>
-                         <input type='number' name='hind' value='' id = 'hind' />".
-                             htmlspecialchars($Hind)."'/>
-                       </dd>
-                       
-                       
-                       <dt><label for='muu'>Muu: </label></dt>
-                       <dd>
-                         <input type='text' name='muu' value='' id = 'muu' />".
-                             htmlspecialchars($Muu)."'/>
-                       </dd>
-                       
-                     </dl>                      
-                     <input type='submit' value='Muuda' />
-                   </form>
-                ";
-             } else {
+                         <dt><label for="toode">Toode: </label></dt>
+                         <dd>
+                             <input type="text" name="toode" id="toode"
+                                    value="<?= htmlspecialchars($Toode) ?>">
+                         </dd>
+
+                         <dt><label for="kirjeldus">Teate Kirjeldus: </label></dt>
+                         <dd>
+                            <textarea rows="20" cols="30" name="kirjeldus" id="kirjeldus"><?=
+                                htmlspecialchars($Kirjeldus)
+                                ?></textarea>
+                         </dd>
+
+                         <dt><label for="hind">Hind: </label></dt>
+                         <dd>
+                             <input type="number" name="hind" id="hind"
+                                    value="<?= htmlspecialchars($Hind) ?>">
+                         </dd>
+
+                         <dt><label for="muu">Muu: </label></dt>
+                         <dd>
+                             <input type="text" name="muu" id="muu"
+                                    value="<?= htmlspecialchars($Muu) ?>">
+                         </dd>
+                     </dl>
+
+                     <input type="submit" value="Muuda"/>
+                 </form>
+                 <?php
+
+             }
+             else
+             {
               echo "<h2>".htmlspecialchars($Toode)."</h2>";
               echo htmlspecialchars($Kirjeldus);
               echo "<br>";
@@ -130,7 +135,9 @@
               echo "<a href='".$_SERVER["PHP_SELF"].
                    "?id=$id&amp;muutmine=jah'>muuda</a>";
              }
-            } else {
+            }
+            else
+            {
               echo "Vigased andmed.";
             }
          }
