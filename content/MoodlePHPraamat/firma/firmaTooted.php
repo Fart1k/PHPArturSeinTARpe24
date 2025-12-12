@@ -70,13 +70,13 @@ if (isset($_REQUEST["muutmisid"])) {
             <?php
             // Loendi kuvamine
             $kask = $yhendus->prepare(
-                "SELECT id, Toode FROM tooted"
+                "SELECT id, Toode, Hind FROM tooted"
             );
-            $kask->bind_result($id, $toode);
+            $kask->bind_result($id, $Toode, $Hind);
             $kask->execute();
             while ($kask->fetch()) {
                 echo "<li><a href='".$_SERVER["PHP_SELF"].
-                    "?id=$id'>".htmlspecialchars($toode)."</a></li>";
+                    "?id=$id'>".htmlspecialchars($Toode) . " - " . htmlspecialchars($Hind) . "€</a></li>";
             }
             ?>
         </ul>
@@ -146,4 +146,5 @@ if (isset($_REQUEST["muutmisid"])) {
     </html>
 <?php
 $yhendus->close();
+
 ?>
