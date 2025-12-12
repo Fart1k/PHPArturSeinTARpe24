@@ -58,17 +58,17 @@
         <h2>Teated</h2>
         <ul>
           <?php
-          // Loendi kuvamine
-             $kask = $yhendus->prepare(
-               "SELECT id, Toode FROM tooted"
-             );
-             $kask->bind_result($id, $toode);
-             $kask->execute();
-             while ($kask->fetch()) {
-               echo "<li><a href='".$_SERVER["PHP_SELF"].
-                    "?id=$id'>".htmlspecialchars($toode)."</a></li>";
-             }
-          ?>
+            // Loendi kuvamine
+            $kask = $yhendus->prepare(
+                "SELECT id, Toode, Hind FROM tooted"
+            );
+            $kask->bind_result($id, $Toode, $Hind);
+            $kask->execute();
+            while ($kask->fetch()) {
+                echo "<li><a href='".$_SERVER["PHP_SELF"].
+                    "?id=$id'>".htmlspecialchars($Toode) . " - " . htmlspecialchars($Hind) . "€</a></li>";
+            }
+            ?>
         </ul>
         <a href="<?=$_SERVER['PHP_SELF']?>?lisamine=jah">Lisa ...</a>
     </div>
@@ -184,3 +184,4 @@
 <?php
   $yhendus->close();
 ?>
+
