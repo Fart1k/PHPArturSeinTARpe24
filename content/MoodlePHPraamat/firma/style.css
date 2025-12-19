@@ -196,3 +196,7 @@ form input[type="submit"] {
     clear: left;
     font-size: 15px;
 }
+img {
+    width: 400px;
+    height: 400px;
+}
