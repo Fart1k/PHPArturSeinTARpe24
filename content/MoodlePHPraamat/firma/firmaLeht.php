@@ -13,6 +13,7 @@
     <li><a href="firmaLeht.php">Avaleht</a></li>
     <li><a href="firmaTooted.php">Tooted</a></li>
     <li><a href="muutmine.php">Admin vaade</a></li>
+    <li><a href="firmaGalerii.php">Galerii</a></li>
 </nav>
 
 <div class="intro-container">
