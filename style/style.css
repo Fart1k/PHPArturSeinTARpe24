@@ -27,7 +27,6 @@ header {
 }
 div.flex-container {
     display: flex;
-    /* Show the flex items horizontally */
     flex-direction: row;
 
 }
@@ -41,7 +40,6 @@ div.flex-container > div {
 }
 
 
-/* Use media query and show the flex items vertically if screen width is less than 600px */
 @media screen and (max-width:600px) {
     div.flex-container {
         flex-direction: column;
@@ -96,7 +94,6 @@ footer {
 }
 
 .dropdown{
-    /*  display: none;*/
     display: block;
     position: absolute;
     opacity: 0;
