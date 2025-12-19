@@ -6,8 +6,8 @@ global $yhendus;
 // Uue teate lisamine
 if (isset($_REQUEST["uusleht"])) {
     if (!empty (trim($_REQUEST["toode"]))) {
-        $kask = $yhendus->prepare("INSERT INTO tooted (Toode, Kirjeldus, Hind, Muu) VALUES (?, ?, ?, ?)");
-        $kask->bind_param("ssis", $_REQUEST["toode"], $_REQUEST["kirjeldus"], $_REQUEST["hind"], $_REQUEST["muu"]);
+        $kask = $yhendus->prepare("INSERT INTO tooted (Toode, Kirjeldus, Hind, Muu, Images) VALUES (?, ?, ?, ?, ?)");
+        $kask->bind_param("ssiss", $_REQUEST["toode"], $_REQUEST["kirjeldus"], $_REQUEST["hind"], $_REQUEST["muu"], $_REQUEST["image"]);
         $kask->execute();
         header("Location: ".$_SERVER["PHP_SELF"]);
         $yhendus->close();
@@ -24,13 +24,14 @@ if (isset($_REQUEST["kustutusid"])) {
 
 // Teate muutmine
 if (isset($_REQUEST["muutmisid"])) {
-    $kask = $yhendus->prepare("UPDATE tooted SET Toode=?, Kirjeldus=?, Hind=?, Muu=? WHERE id=?");
+    $kask = $yhendus->prepare("UPDATE tooted SET Toode=?, Kirjeldus=?, Hind=?, Muu=?, Images=? WHERE id=?");
     $kask->bind_param(
-        "ssssi",
+        "sssssi",
         $_REQUEST["toode"],
         $_REQUEST["kirjeldus"],
         $_REQUEST["hind"],
         $_REQUEST["muu"],
+        $_REQUEST["image"],
         $_REQUEST["muutmisid"]
     );
     $kask->execute();
@@ -42,27 +43,13 @@ if (isset($_REQUEST["muutmisid"])) {
         <title>Teated lehel</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
         <link rel="stylesheet" href="style.css">
-        <style type="text/css">
-            #menyykiht {
-                float: left;
-                padding-right: 30px;
-            }
-            #sisukiht {
-                float: left;
-            }
-            #jalusekiht {
-                clear: left;
-                margin-top: 20px;
-                font-size: 0.9em;
-                color: #666;
-            }
-        </style>
     </head>
     <body>
     <nav>
         <li><a href="firmaLeht.php">Avaleht</a></li>
         <li><a href="firmaTooted.php">Tooted</a></li>
         <li><a href="muutmine.php">Admin vaade</a></li>
+        <li><a href="firmaGalerii.php"></a></li>
     </nav>
     <div id="menyykiht">
         <h2>Teated</h2>
@@ -86,9 +73,9 @@ if (isset($_REQUEST["muutmisid"])) {
         <?php
         // Ühe teate kuvamine või muutmine
         if (isset($_REQUEST["id"])) {
-            $kask = $yhendus->prepare("SELECT id, Toode, Kirjeldus, Hind, Muu FROM tooted WHERE id=?");
+            $kask = $yhendus->prepare("SELECT id, Toode, Kirjeldus, Hind, Muu, Images FROM tooted WHERE id=?");
             $kask->bind_param("i", $_REQUEST["id"]);
-            $kask->bind_result($id, $Toode, $Kirjeldus, $Hind, $Muu);
+            $kask->bind_result($id, $Toode, $Kirjeldus, $Hind, $Muu, $image);
             $kask->execute();
 
             if ($kask->fetch()) {
@@ -101,7 +88,7 @@ if (isset($_REQUEST["muutmisid"])) {
                        <dt><label for='toode'>Toode: </label></dt>
                        <dd>
                          <input type='text' name='toode' value='' id = 'toode' />".
-                        htmlspecialchars($toode)."'/>
+                        htmlspecialchars($Toode)."'/>
                        </dd>
                        <dt><label for='kirjeldus'>Teate Kirjeldus: </label></dt>
                        <dd>
@@ -122,6 +109,12 @@ if (isset($_REQUEST["muutmisid"])) {
                         htmlspecialchars($Muu)."'/>
                        </dd>
                        
+                       <dt><label for='images'>Pilt: </label></dt>
+                       <dd>
+                       <input type='text' name='images' value='' id = 'images' />".
+                        "<img src='$image' alt='Pilt'>"."'/>
+                        </dd>
+                       
                      </dl>                      
                      <input type='submit' value='Muuda' />
                    </form>
@@ -133,6 +126,8 @@ if (isset($_REQUEST["muutmisid"])) {
                     echo "Hind: ", htmlspecialchars($Hind), " Euro" ;
                     echo "<br>";
                     echo "Muu: ", htmlspecialchars($Muu);
+                    echo "<br>";
+                    echo "Pilt: ", "<img src='$image' alt='Pilt' width='400px' height='400px'>";
                 }
             }
         }
