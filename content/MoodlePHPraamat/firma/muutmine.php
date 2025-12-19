@@ -6,8 +6,8 @@
   // Uue teate lisamine
   if (isset($_REQUEST["uusleht"])) {
       if (!empty (trim($_REQUEST["toode"]))) {
-        $kask = $yhendus->prepare("INSERT INTO tooted (Toode, Kirjeldus, Hind, Muu) VALUES (?, ?, ?, ?)");
-        $kask->bind_param("ssis", $_REQUEST["toode"], $_REQUEST["kirjeldus"], $_REQUEST["hind"], $_REQUEST["muu"]);
+        $kask = $yhendus->prepare("INSERT INTO tooted (Toode, Kirjeldus, Hind, Muu, Images) VALUES (?, ?, ?, ?, ?)");
+        $kask->bind_param("ssiss", $_REQUEST["toode"], $_REQUEST["kirjeldus"], $_REQUEST["hind"], $_REQUEST["muu"], $_REQUEST["image"]);
         $kask->execute();
         header("Location: ".$_SERVER["PHP_SELF"]);
         $yhendus->close();
@@ -24,13 +24,14 @@
 
   // Teate muutmine
   if (isset($_REQUEST["muutmisid"])) {
-    $kask = $yhendus->prepare("UPDATE tooted SET Toode=?, Kirjeldus=?, Hind=?, Muu=? WHERE id=?");
+    $kask = $yhendus->prepare("UPDATE tooted SET Toode=?, Kirjeldus=?, Hind=?, Muu=?, Images=? WHERE id=?");
     $kask->bind_param(
-      "ssssi",
+      "sssssi",
       $_REQUEST["toode"],
       $_REQUEST["kirjeldus"],
       $_REQUEST["hind"],
       $_REQUEST["muu"],
+      $_REQUEST["image"],
       $_REQUEST["muutmisid"]
     );
     $kask->execute();
@@ -42,17 +43,13 @@
     <title>Teated lehel</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
       <link rel="stylesheet" href="style.css">
-    <style type="text/css">
-       #jalusekiht {
-
-       }
-    </style>
   </head>
   <body>
   <nav>
       <li><a href="firmaLeht.php">Avaleht</a></li>
       <li><a href="firmaTooted.php">Tooted</a></li>
       <li><a href="muutmine.php">Admin vaade</a></li>
+      <li><a href="firmaGalerii.php">Galerii</a></li>
   </nav>
     <div id="menyykiht">
         <h2>Teated</h2>
@@ -77,9 +74,9 @@
        <?php
          // Ühe teate kuvamine või muutmine
          if (isset($_REQUEST["id"])) {
-            $kask = $yhendus->prepare("SELECT id, Toode, Kirjeldus, Hind, Muu FROM tooted WHERE id=?");
+            $kask = $yhendus->prepare("SELECT id, Toode, Kirjeldus, Hind, Muu, Images FROM tooted WHERE id=?");
             $kask->bind_param("i", $_REQUEST["id"]);
-            $kask->bind_result($id, $Toode, $Kirjeldus, $Hind, $Muu);
+            $kask->bind_result($id, $Toode, $Kirjeldus, $Hind, $Muu, $Image);
             $kask->execute();
 
             if ($kask->fetch()) {
@@ -98,9 +95,9 @@
 
                          <dt><label for="kirjeldus">Teate Kirjeldus: </label></dt>
                          <dd>
-                            <textarea rows="20" cols="30" name="kirjeldus" id="kirjeldus"><?=
-                                htmlspecialchars($Kirjeldus)
-                                ?></textarea>
+                            <textarea rows="20" cols="30" name="kirjeldus" id="kirjeldus">
+                                <?= htmlspecialchars($Kirjeldus) ?>
+                            </textarea>
                          </dd>
 
                          <dt><label for="hind">Hind: </label></dt>
@@ -113,6 +110,13 @@
                          <dd>
                              <input type="text" name="muu" id="muu"
                                     value="<?= htmlspecialchars($Muu) ?>">
+                         </dd>
+
+                         <dt><label for="image">Pilt: </label></dt>
+                         <dd>
+                             <textarea name="image" id="image" cols="30" rows="20">
+                                 <?= htmlspecialchars($Image) ?>
+                             </textarea>
                          </dd>
                      </dl>
 
@@ -129,6 +133,8 @@
               echo "Hind: ", htmlspecialchars($Hind), " Euro";
               echo "<br>";
               echo "Muu: ", htmlspecialchars($Muu);
+              echo "<br>";
+              echo "Pilt: ", "<img src='$Image' alt='Pilt' width='400px' height='400px'>";
 
               echo "<br /><a href='".$_SERVER["PHP_SELF"].
                    "?kustutusid=$id'>kustuta</a> ";
@@ -166,6 +172,11 @@
                   <dt><label for="muu">Muu: </label></dt>
                   <dd>
                       <input type="text" name="muu" id="muu"/>
+                  </dd>
+                  
+                  <dt><label for="image">Pilt: </label></dt>
+                  <dd>
+                      <textarea name="image" id="image" cols="30" rows="5"></textarea>
                   </dd>
 
                </dl>
